@@ -7,4 +7,4 @@
 ③權利金希望多少以上能跳出提醒
 
 
-![報價](blob:https://imgur.com/23e3eb1d-0843-46c3-a513-94abe16975e9)
+![報價](https://i.imgur.com/KQ9WJJs.png)
