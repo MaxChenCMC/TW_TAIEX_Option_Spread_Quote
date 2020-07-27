@@ -8,6 +8,9 @@
 
 此程式可記錄日盤與盤後盤(夜盤)的權利金走勢
 
+![報價](https://i.imgur.com/RIMNE2q.png)
+![報價](https://i.imgur.com/hT0OsQl.png)
+
 做為雙賣建倉時該收多少權利金的依據
 
 藉由觀察權利金是否異常波動
@@ -36,6 +39,3 @@ sell價平put + buy價外1檔put的複式，可收單權利金大約22點
 是有機會雙賣收取超過50點的權利金
 
 進而安心放到結算
-
-* * *
-![報價](https://i.imgur.com/KQ9WJJs.png)
