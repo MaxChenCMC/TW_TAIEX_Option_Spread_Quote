@@ -1,3 +1,7 @@
+# 期交所 AfterHoursSession(MarketType: "1") ±1檔履約價 價平和走勢圖
+![報價2](https://i.imgur.com/uiElLUG.png)
+
+
 # 週選擇權賣方價差策略
 
 旨在預期週三週選擇權結算時
@@ -10,7 +14,7 @@
 
 ![報價](https://i.imgur.com/RIMNE2q.png)
 
-![報價2](https://i.imgur.com/hT0OsQl.png)
+
 
 做為雙賣建倉時該收多少權利金的依據
 
