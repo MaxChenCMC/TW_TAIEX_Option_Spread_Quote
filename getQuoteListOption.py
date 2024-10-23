@@ -91,9 +91,9 @@ def append_to_csv(df, filename):
 def data_collection_thread():
     while True:
         try:
-            df = strike_range_code("TX4W4104;", "1", "TXO", "202410W4")
+            df = strike_range_code("TX5W5104;", "0", "TXO", "202410W5")
             if df is not None:
-                append_to_csv(df, 'premium1.csv')
+                append_to_csv(df, 'premium.csv')
                 data_queue.put(True)  # Signal that new data is available
             time.sleep(30)  # 爬的頻率
         except Exception as e:
@@ -103,8 +103,8 @@ def data_collection_thread():
 
 def update_plot(frame):
     try:
-        if os.path.exists('premium1.csv'):
-            data = pd.read_csv('premium1.csv')
+        if os.path.exists('premium.csv'):
+            data = pd.read_csv('premium.csv')
             data['time'] = pd.to_datetime(data['time'], format='%H:%M:%S')
 
             plt.gca().clear()
