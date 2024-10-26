@@ -16,7 +16,7 @@ import queue
 data_queue = queue.Queue()
 
 
-def strike_range_code(DispEName: str, mkt_type: str, contract_id: str, ExpireMonth: str) -> pd.DataFrame:
+def strike_range_code(DispEName: str, mkt_type: str, contract_id: str, ExpireMonth: str) -> pd.DataFrame | None:
     '''
     RegularSession：https://mis.taifex.com.tw/futures/RegularSession/EquityIndices/Options/
     AfterHoursSession：https://mis.taifex.com.tw/futures/AfterHoursSession/EquityIndices/Options/
@@ -27,13 +27,17 @@ def strike_range_code(DispEName: str, mkt_type: str, contract_id: str, ExpireMon
     try:
         # change per week contract
         if mkt_type == "0":
-            arg1, arg2, arg3 = 'K', "F", "Q"
+            arg1: str = "F"
+            arg2: str = "Q"
         elif mkt_type == "1":
-            arg1, arg2, arg3 = 'K', "M", "R"
+            arg1: str = "M"
+            arg2: str = "R"
 
         res = requests.post("https://mis.taifex.com.tw/futures/api/getQuoteDetail",
                             json={"SymbolID": [
-                                "TXF-S", f"TXF{arg1}4-{arg2}", f"TXO-{arg3}"]}
+                                # type: ignore
+                                # type: ignore
+                                "TXF-S", f"TXFK4-{arg1}", f"TXO-{arg2}"]}
                             ).json()["RtData"]['QuoteList'][1]
         QRTime = datetime.strptime(res["CTime"], '%H%M%S').strftime('%H:%M:%S')
         last_close = float(res['CLastPrice'])
@@ -91,7 +95,7 @@ def append_to_csv(df, filename):
 def data_collection_thread():
     while True:
         try:
-            df = strike_range_code("TX5W5104;", "0", "TXO", "202410W5")
+            df = strike_range_code("TX5W5104;", "1", "TXO", "202410W5")
             if df is not None:
                 append_to_csv(df, 'premium.csv')
                 data_queue.put(True)  # Signal that new data is available
@@ -101,7 +105,7 @@ def data_collection_thread():
             time.sleep(30)
 
 
-def update_plot(frame):
+def update_plot():
     try:
         if os.path.exists('premium.csv'):
             data = pd.read_csv('premium.csv')
@@ -120,7 +124,7 @@ def update_plot(frame):
             plt.grid(True)
             plt.xticks(rotation=45)
 
-            if len(data) > 150:
+            if len(data) > 200:
                 plt.xlim(data['time'].iloc[-150:].iloc[0],
                          data['time'].iloc[-1])
 
@@ -139,7 +143,7 @@ def main():
     # Create and show the plot
     fig = plt.figure(figsize=(12, 6))
     # Update every 5 seconds
-    ani = FuncAnimation(fig, update_plot, interval=15_000)
+    ani = FuncAnimation(fig, update_plot, interval=15_000)  # type: ignore
     plt.show()
 
 
